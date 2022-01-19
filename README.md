@@ -12,85 +12,89 @@ Python is an integrated high level computer programming language which is versat
 This project is made up of two challenges
 * PyBank
 * PyPoll
+
+Two different sets of csv's a read and lists, dictionaries, and tuples are used to analyze the data and create output files.
+The files for each analysis are saved in main.py files.
  
 **Source of data:**
 
-The source data is in the form of a raw data, so the data will first be processed and used to fit the machine learning models. The is no known classification system, hence the use of unsupervised learning. Several clustering algorithms will be used to explore whether the cryptocurrencies can be grouped together with other similar cryptocurrencies and data visualization will be used to share the findings with the investment bank.
+The source data is in a form of a csv 
 
-The data was obtained from https://min-api.cryptocompare.com/data/all/coinlist (CryptoCompare)
+* budget_data.csv for the PyBank analysis  
+* election_data.csv for the PyPoll analysis
 
 ## PyBank
 _____________________________________________________
 ![image](https://user-images.githubusercontent.com/82990618/150007537-2ebb54e3-3677-4c71-ab93-124370edefc0.png)
 
+For this analysis, financial records/ dataset of a company was analyzed. The dataset is composed of two columns: Date and Profit/Losses.
 
-### Analysis
+This Python script analysis the dataset to calculate:
 
-**Data Preparation**
+* The total number of months included in the dataset
+* The net total amount of "Profit/Losses" over the entire period
+* Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
+* The greatest increase in profits (date and amount) over the entire period
+* The greatest decrease in profits (date and amount) over the entire period
 
-Using a series of steps, the data was prepared for the analysis. The steps are listed below.
-*	Reading
-*	Cleaning (filtering, elimination)
-*	Standardize 
-*	Reduction
+The final script prints the analysis to the terminal and export a text file with the results.
+
+
+The analysis should look like below:
+
+Finacial Analysis
+
+----------------------------
+Total Months: 86
+
+Total: $38382578
+
+Average  Change: $-2315.12
+
+Greatest Increase in Profits: Feb-2012 ($1926159)
+
+Greatest Decrease in Profits: Sep-2013 ($-2196167)
 
 ## PyPoll
 _____________________________________________________
 ![image](https://user-images.githubusercontent.com/82990618/150009576-53d656fd-6062-429a-bb8c-35305afaaec1.png)
 
-**Reading & Cleaning**
-* Read crypto_data.csv into Pandas. 
-*  Discard all cryptocurrencies that are not being traded. Filter for currencies that are currently being traded. Once done this, drop the IsTrading column from the dataframe.
-*  Remove all rows that have at least one null value.
-*  Filter for cryptocurrencies that have been mined. That is, the total coins mined should be greater than zero.
-*  Since the coin names do not contribute to the analysis of the data, delete the CoinName from the original dataframe to make the data comprehensible to a machine learning algorithm.
-*  Convert the remaining features with text values, Algorithm and ProofType, into numerical data using Pandas to create dummy variables. Examine the number of rows and columns of your dataset now. How did they change?
+In this next analysis ascript is written to help a small rural town to modernize its vote counting process. '
 
-**Standardize**
+A set of poll data called election_data.csv is used in the analysis. The dataset is composed of three columns: Voter ID, County, and Candidate and this script analyzes the votes and calculates each of the following:
 
-* Standardize your dataset so that columns that contain larger values do not unduly influence the outcome.
+* The total number of votes cast
+* A complete list of candidates who received votes
+* The percentage of votes each candidate won
+* The total number of votes each candidate won
+* The winner of the election based on popular vote.
 
-**Dimensionality Reduction and Models**
+The final script for this analysis should also print the analysis to the terminal and export a text file with the results.
 
-* Creating dummy variables dramatically increased the number of features in the dataset. Dimensionality reduction with **PCA** was performed. Rather than specify the number of principal components when the **PCA** model is instantiated, the desired **explained variance was stated**. For example, say that a dataset has 100 features. Using **PCA**(n_components=0.99) creates a model that will preserve approximately 99% of the explained variance, whether that means reducing the dataset to 80 principal components or 3. For this project, 90% of the explained variance in dimensionality reduction was preserved. 
-*  Next, further reduction of the dataset dimensions with **t-SNE** was performed  and the results visually inspected. To accomplish this task, **t-SNE** was run on the principal components: the output of the **PCA** transformation. Then a scatter plot of the **t-SNE** output was created. 
+Election Results
 
-**Scatter Plot**
+-------------------------
 
-![image](https://user-images.githubusercontent.com/82990618/136716217-bd3c964f-4ad8-456f-a690-95a537df3d0d.png)
+Total Votes: 3521001
 
-**Observation**
+-------------------------
+Khan: 63.000% (2218231)
 
-Observe whether there are distinct clusters or not?
+Correy: 20.000% (704200)
 
-There appears to be about 4 distinct clusters with 2 outliers
+Li: 14.000% (492940)
 
-**Cluster Analysis with k-Means**
+O'Tooley: 3.000% (105630)
 
-An elbow plot (**k-Means**) was created to identify the best number of clusters. Using a for-loop the inertia for each **k** between 1 through 10 was determined. The value of **k** where the elbow of the plot lies was determined, that is  at which value of **k** it appears. 
+-------------------------
 
-**Elbow Curve Plot**
+Winner: Khan
+-------------------------
 
-![image](https://user-images.githubusercontent.com/82990618/136716645-464f6ced-b623-4864-8171-c864091dd08a.png)
 
-**Observation**
 
-From the elbow curve the k appears around 4 which is indicative of 4 clusters as seen in the scatter plot.
 
-### Observations and Recommendation
 
-**Observations:**
 
-*Scatter Plot from PCA and t-SNE analysis*
 
-* There appears to be about 4 distinct clusters with 2 outliers. 
 
-*k-Means Elbow Curve*
-
-* From the elbow curve the k appears around 4 which is indicative of 4 clusters as seen in the scatter plot.
-
-**Recommendation:**
-
-Since clustering is used in Unsupervised Machine Learning to classify data into structures to make it possible for easy manipulation as well as make the data easy to understand. Clustering minimizes the variance of data point within the cluster and combine data that are like each other. The Scatter plot was a little unclear of the number of possible clusters, so the elbow curve was employed. 
-The Elbow Curve is used to determine the optimal number of possible clusters. From the elbow curve the value of k=4 (the point where there is an improvement in distortion) which means further division of the data into clusters are not necessary. 
-The Cryptocurrency data can therefore be clustered into 4 groups for analysis.  
